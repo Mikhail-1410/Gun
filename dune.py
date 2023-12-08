@@ -320,11 +320,8 @@ bomb1 = Bomb(screen, target1)
 
 running = True
 while running:
-    
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-            pygame.quit()
+
+
 
     '''Вывод изображений'''
     screen.blit(bg, (0,0))
@@ -338,8 +335,7 @@ while running:
     for b in balls:
         b.draw()
 
-
-
+    clock.tick(FPS)
     '''Движение'''
     keys = pygame.key.get_pressed()
     '''Переключение: д - девостатор, с - соник'''
@@ -348,7 +344,33 @@ while running:
     if keys[pygame.K_l] and plen != False:
         plen = False
 
-    clock.tick(FPS)
+    if keys[pygame.K_a] and Devos.x > 30 and plen == False:
+        Devos.x -= player_speed
+    if keys[pygame.K_d] and Devos.x < 1100 and plen == False:
+        Devos.x += player_speed
+    if keys[pygame.K_w] and Devos.y > 60 and plen == False:
+        Devos.y -= player_speed
+    if keys[pygame.K_s] and Devos.y < 870 and plen == False:
+        Devos.y += player_speed
+
+    if keys[pygame.K_a] and Sonic.x > 30 and plen == True:
+        Sonic.x -= player_speed
+    if keys[pygame.K_d] and Sonic.x < 1100 and plen == True:
+        Sonic.x += player_speed
+    if keys[pygame.K_w] and Sonic.y > 60 and plen == True:
+        Sonic.y -= player_speed
+    if keys[pygame.K_s] and Sonic.y < 870 and plen == True:
+        Sonic.y += player_speed
+
+
+    target1.move()
+    target2.move()
+    bomb1.move()
+
+
+
+
+
     for event in pygame.event.get():
         if event.type == pygame.MOUSEBUTTONDOWN:
             if step % 2 == 0:
@@ -368,12 +390,7 @@ while running:
                 Sonic.targetting(event)
 
 
-    '''Movement'''
-    target1.move()
-    target2.move()
-    bomb1.move()
-    Devos.move(keys,player_speed, plen)
-    Sonic.move(keys, enemy_speed, plen)
+
 
     for b in balls:
         b.move()
@@ -399,7 +416,14 @@ while running:
     if Sonic.live == 0:
         Sonic.new_sonic(enemy_x,enemy_y)
 
+
     pygame.display.update()
 
 
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+            pygame.quit()
+            break
 
