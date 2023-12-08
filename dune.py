@@ -335,7 +335,7 @@ while running:
     for b in balls:
         b.draw()
 
-    clock.tick(FPS)
+
     '''Движение'''
     keys = pygame.key.get_pressed()
     '''Переключение: д - девостатор, с - соник'''
@@ -344,29 +344,14 @@ while running:
     if keys[pygame.K_l] and plen != False:
         plen = False
 
-    if keys[pygame.K_a] and Devos.x > 30 and plen == False:
-        Devos.x -= player_speed
-    if keys[pygame.K_d] and Devos.x < 1100 and plen == False:
-        Devos.x += player_speed
-    if keys[pygame.K_w] and Devos.y > 60 and plen == False:
-        Devos.y -= player_speed
-    if keys[pygame.K_s] and Devos.y < 870 and plen == False:
-        Devos.y += player_speed
-
-    if keys[pygame.K_a] and Sonic.x > 30 and plen == True:
-        Sonic.x -= player_speed
-    if keys[pygame.K_d] and Sonic.x < 1100 and plen == True:
-        Sonic.x += player_speed
-    if keys[pygame.K_w] and Sonic.y > 60 and plen == True:
-        Sonic.y -= player_speed
-    if keys[pygame.K_s] and Sonic.y < 870 and plen == True:
-        Sonic.y += player_speed
+    clock.tick(FPS)
 
 
     target1.move()
     target2.move()
     bomb1.move()
-
+    Devos.move(keys,player_speed,plen)
+    Sonic.move(keys,enemy_speed,plen)
 
 
 
